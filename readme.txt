@@ -10,8 +10,6 @@ ssh-keygen -t rsa -C "youremail@example.com"
 将id_rsa.pub设置进个人主页里面以后帐号可以识别本台设备了
 
 
-
-
 本地上传文件
 git add 文件
  
@@ -28,6 +26,9 @@ git push -u designpatten master
 
 
 以后本地上传直接
+
+但也需要先add 
+在 commit -m "说明"
 
 git push designpatten master
 
