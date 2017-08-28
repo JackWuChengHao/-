@@ -1,0 +1,1 @@
+”<user username="admin" password="1234" roles="manager-gui"/>“
