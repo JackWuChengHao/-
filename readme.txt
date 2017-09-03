@@ -35,3 +35,7 @@ git push designpatten master
 从远程拉取使用
 
 git pull designpatten master
+
+
+
+发现个好东西 postman 在测试spring mvc或者spring boot的时候真是好东西
