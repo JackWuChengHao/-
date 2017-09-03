@@ -12,6 +12,7 @@
 	5.修改mysql的配置文件 发现没有my.ini 于是把 my-small.ini my-medium.ini my-large.ini my-innodb-heavy-4G.ini my-huge.ini 中mysqld下加入   
 			mysql 5.5 为 character-set-server=utf8 
 			mysql 5.1 及之前版本 为 default-character-set=utf8
+		并新建my.ini，将 my-small.ini 内容复制给my.ini
 	
 	重启myslq后发现正常写入和读取中文，但是navicat查看中文为??
 	
