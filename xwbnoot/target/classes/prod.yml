@@ -1,0 +1,13 @@
+server:
+      address: localhost
+      port: 8081
+
+xiaowu:
+      name: xiaowu
+      age: 18
+
+datasource:
+      url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+      username: root
+      password: ""
+      dirver-class-name: com.mysql.jdbc.Drivers

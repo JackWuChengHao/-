@@ -1,0 +1,13 @@
+server:
+      address: localhost
+      port: 8080
+
+
+thymeleaf:
+          prefix: resource:/templates/
+          suffix: html
+          mode: HTML5
+          encoding: UTF-8
+          cache: false
+
+
