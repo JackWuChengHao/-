@@ -1,0 +1,21 @@
+server:
+    host: localhost
+    port: 8060
+spring:
+     datasource:
+          driver-class-name:  com.mysql.jdbc.Driver
+          url:  jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+          username: root
+          password: ""
+     jpa:
+       hibernate:
+#        create create-drop 应用停止会删除表 none validate
+          ddl-auto: update
+       show-sql: true
+     thymeleaf:                                                     
+          prefix: classpath:/templates/
+          suffix: .html
+          mode: HTML5
+          encoding: UTF-8
+          context-type: text/html
+          cache: false     
