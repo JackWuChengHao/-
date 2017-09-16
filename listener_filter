@@ -1,0 +1,61 @@
+在试验中发现会初始化构造函数和init函数两次因为同时使用了@webfilter的注解和web.xml里的配置去掉注解即可
+对于filter发现不符合验证条件的时候可以执行request.dispatch("/**").forward(request,reponse);将请求指向不符合的请求，然后再chain.doFilter(request,reponse)放行
+	
+  
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		// TODO Auto-generated method stub
+		HttpServletResponse httpresponse = (HttpServletResponse)response;
+		HttpServletRequest httprequest= (HttpServletRequest)request;
+		// place your code here
+		System.out.println("filter 2");
+		if("xiaowu".equals(httprequest.getParameter("user"))) 
+			chain.doFilter(request, response);
+		else {
+			httprequest.getRequestDispatcher("/error").forward(request, response);
+			chain.doFilter(request, response);
+		}
+	}
+  
+  上段代码及发现request中的user不是等于xiaowu则跳转到错误页面
+  
+  在一个web工程中filter和listener只执行一次构造和init函数
+  //
+  信息: At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+九月 17, 2017 2:14:31 上午 org.apache.catalina.core.ApplicationContext log
+信息: No Spring WebApplicationInitializer types detected on classpath
+new ServletContextListener
+new sessionlistener
+new ServletRequestListener
+contextInitialized
+new filter 1
+init filter1
+new filter 2
+init filter 2
+new filter 3
+init filter 3
+九月 17, 2017 2:14:31 上午 org.apache.catalina.core.ApplicationContext log
+信息: Initializing Spring FrameworkServlet 'spring'
+九月 17, 2017 2:14:31 上午 org.springframework.web.servlet.DispatcherServlet initServletBean
+信息: FrameworkServlet 'spring': initialization started
+  //
+  以上为启动信息
+  可以发现先是new出serlvetcontextlistener,sessionlistener,servletlistener,并对contextservletlistener进行初始化
+  然后在依次（根据web.xml中配置的顺序）new 出 并init filter
+  然后启动成功
+  在一个浏览器请求服务时
+//
+requestInitialized
+filter 1
+filter 2
+session created
+xiaowu
+filter 3
+requestDestroyed
+//
+会先初始化一个request
+然后执行filter
+在第二个filter的时候系统会创建一个session，此时sessionlistener会监听到session create的动作，此时会执行session listener中实现HttpSessionListener 接口的sessionCreated（）函数中的内容，还有当session注销的时候有sessionDestroyed的函数。
+
+对于ServletRequestListener接口有requestInitialized和requestDestroyed的监听并可以在此时做一些动作。
+
+ServletContextListener有contextInitialized和contextDestroyed的监听
