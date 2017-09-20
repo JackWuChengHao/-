@@ -1,6 +1,5 @@
 window.xw_tools = {
     sendAjax:function(url,data){
-    	console.log(data);
     	if(data === null || data === undefined){
     		data = "";
     	}
@@ -14,11 +13,14 @@ window.xw_tools = {
 			contentType:"application/json;charset=utf-8",
 			async:false,
 			success:function(result_data){
-				resultcode =result_data["code"];
+				if(result_data["code"] === "0"){
+					alert("ok");
+				}else{
+					$("#msgshowbox").text(result_data["message"]).show(500).hide(300);
+				}
 			},
 			error:function(){
 				alert("请求出错", "", "error");
-				
 			}
 		});
 		return resultcode;
@@ -48,42 +50,17 @@ window.xw_tools = {
           obj.css({left: objLeft +"px", top: objTop +"px"});
       });
     },
-//     centerObj:function(obj) {
-//        var screenWidth = $(window).width(), screenHeight = $(window).height();  //当前浏览器窗口的宽高
-//        var scrolltop = $(document).scrollTop();//获取当前窗口距离页面顶部高度
-//        var objLeft = (screenWidth - obj.width()) / 2;
-//        var objTop = (screenHeight - obj.height()) / 2 + scrolltop;
-//        obj.css({left: objLeft +"px", top: objTop +"px"});
-//        //浏览器窗口大小改变时
-//        $(window).resize(function () {
-//            screenWidth = $(window).width();
-//            screenHeight = $(window).height();
-//            scrolltop = $(document).scrollTop();
-//            objLeft = (screenWidth - obj.width()) / 2;
-//            objTop = (screenHeight - obj.height()) / 2 + scrolltop;
-//            obj.css({left: objLeft +"px", top: objTop +"px"});
-//        });
-//        //浏览器有滚动条时
-//        $(window).scroll(function () {
-//            screenWidth = $(window).width();
-//            screenHeight = $(window).height();
-//            scrolltop = $(document).scrollTop();
-//            objLeft = (screenWidth - obj.width()) / 2;
-//            objTop = (screenHeight - obj.height()) / 2 + scrolltop;
-//            obj.css({left: objLeft +"px", top: objTop +"px"});
-//        });
-//    },
 };
 
-$("document").ready(
-		function(){
-			$(":reset").on("click",function(){
-				alert("okokok");
-				$("form").validate().resetForm();
-				alert("okokokhehe");
-			});
-		}
-);
+//$("document").ready(
+//		function(){
+//			$(":reset").on("click",function(){
+//				alert("okokok");
+//				$("form").validate().resetForm();
+//				alert("okokokhehe");
+//			});
+//		}
+//);
 
 (function ($) {
     //1.得到$.ajax的对象

@@ -4,9 +4,10 @@
 $("document").ready(function(){
 	//水平垂直居中 支持浏览器窗口大小改变，存在垂直滚动条
 	xw_tools.centerObj($("#login_form"));
-	alert("11");
-	$("#submit_logininfo").on("click",login);
-	alert("22");
+	loginvalidator();
+//	alert("11");
+//	$("#submit_logininfo").on("click",login);
+//	alert("22");
 });
 	// <!-- 	    for(i = 0;i<2;i++){ -->
 	// <!-- 	    	user[i] = {}; -->
@@ -51,14 +52,12 @@ $("document").ready(function(){
 	//         title: 'password'
 	//     }, ]
 	// });
-function login(){
-//	alert("okok");
-	loginvalidator();
+//function login(){
+//	loginvalidator();
+//}
 
-}
-window.spring = {};
 function loginvalidator(){
-	spring.login_form_validate = $("#login_form").validate({
+var login_form_validate = $("#login_form").validate({
         errorElement : 'span',
         errorClass : 'help-block',
         rules : {
@@ -70,6 +69,8 @@ function loginvalidator(){
         	password : "请输入密码",
        },
        errorPlacement : function(error, element) {
+    	   console.log(element);
+    	   console.log(error);
            element.next().remove();//删除显示图标
            element.after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
            element.closest('.form-group').append(error);//显示错误消息提示
@@ -87,5 +88,15 @@ function loginvalidator(){
            label.remove();
        },
        onsubmit:true,
+       debug:false,
+       submitHandler:function(form){
+           var user = {};
+           user.name = $("#username").val();
+           user.password = $("#password").val();
+           var result = xw_tools.sendAjax("http://localhost:8060/login",user);
+       }    
 	});
+
+
+$(":reset").on("click",function(){alert("okok");console.log(login_form_validate);login_form_validate.resetForm();alert("okok11");});
 }

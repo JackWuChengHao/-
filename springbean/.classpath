@@ -65,5 +65,7 @@
 	<classpathentry kind="lib" path="lib/spring-websocket-4.3.8.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/spring-websocket-4.3.8.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="lib/spring-websocket-4.3.8.RELEASE.jar"/>
+	<classpathentry kind="lib" path="aspect/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="aspect/aspectjweaver-1.5.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

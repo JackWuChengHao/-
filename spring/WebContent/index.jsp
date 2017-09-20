@@ -28,8 +28,10 @@
 </head>
 <body>
 	<div class="container">
+		<div id="msgshowbox"  style="dispaly:none">
+		</div>
 		<form class="form-horizontal col-md-4" role="form" id="login_form"
-			style="position: absolute;">
+			style="position: absolute;" method="post" action="http://localhost:8060/login">
 			<div class="form-group">
 				<label for="username" class="col-sm-2  control-label"> <span class="glyphicon glyphicon-user"></span>用户名</label>
 				<div class="col-sm-5">
@@ -47,7 +49,7 @@
 			<div class="form-group">
 				<div class="col-sm-5 col-sm-push-2 ">
 					<div class="col-sm-6">
-						<button class="btn btn-sm btn-block btn-info" type="button" id="submit_logininfo">登入</button>
+						<button class="btn btn-sm btn-block btn-info" type="submit">登入</button>
 					</div>
 					<div class="col-sm-6">
 						<button class="btn  btn-sm  btn-block btn-warning"  type="reset">重置</button>

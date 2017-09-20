@@ -19,6 +19,11 @@ public class Test {
 		return "register";
 	}
 	
+	@RequestMapping("/homepage")
+	public String homepage() {
+		return "homepage";
+	}
+	
 	@RequestMapping("register")
 	public String register() {
 		return "index";
