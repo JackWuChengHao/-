@@ -2,7 +2,6 @@ package home.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +30,7 @@ import home.iter.Season;
 public class welcome {
 	
 	@Resource
-	private userdao ud;
+	private userdao userdaoimpl;
 	
 	
 	@RequestMapping("/")
@@ -40,11 +39,11 @@ public class welcome {
 	}
 	
 	@RequestMapping("/users")
-	public String test(HttpServletRequest request, HttpServletResponse response ) {
+	public List<User> test(HttpServletRequest request, HttpServletResponse response ) {
 		System.out.println(request.getHeader("Origin"));
 		System.out.println(request.getHeader("Refer"));
 		response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
-		return "123123";
+		return userdaoimpl.users();
 	}
 	
 	@RequestMapping("/file")
@@ -105,11 +104,10 @@ public class welcome {
 		for (User user2 : userlist) {
 			if(user2.getName().equals(user.getName()) && user2.getPassword().equals(user.getPassword()) ) {
 				result.put("code","0");
-				HttpServletRequest httprequest =	(HttpServletRequest)request;
-				HttpServletResponse httpresponse = (HttpServletResponse)response;
-				Enumeration<String> test =  httprequest.getHeaderNames();
-//				httprequest.getRequestDispatcher("http://localhost:8080/spring/homepage").forward(request, response);
-				httpresponse.sendRedirect("http://localhost:8080/spring/homepage");
+//				HttpServletRequest httprequest =	(HttpServletRequest)request;
+//				HttpServletResponse httpresponse = (HttpServletResponse)response;
+//				Enumeration<String> test =  httprequest.getHeaderNames();
+//				httpresponse.sendRedirect("http://localhost:8080/spring/homepage");
 				return result;
 			}else {
 				continue;
@@ -122,9 +120,8 @@ public class welcome {
 	
 	@RequestMapping("userlist")
 	public List<User> userlist() {
-		return ud.findAll();
+		return userdaoimpl.users();
 	}
-	
 }
 
 

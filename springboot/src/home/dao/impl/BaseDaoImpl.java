@@ -32,7 +32,7 @@ private Class<T> clazz;//创建一个Class对象来获取泛型的class
 
 	@Override
 	public Session getSession() {
-		return getSessionfactory().getCurrentSession();
+		return getSessionfactory().openSession();
 	}
 
 	@Override
