@@ -5,6 +5,7 @@ $("document").ready(function(){
 	//水平垂直居中 支持浏览器窗口大小改变，存在垂直滚动条
 	xw_tools.centerObj($("#login_form"));
 	loginvalidator();
+	$(":reset").on("click",function(){alert("okok");$("#login_form").validate().resetForm();alert("okok11");});
 //	alert("11");
 //	$("#submit_logininfo").on("click",login);
 //	alert("22");
@@ -69,8 +70,6 @@ var login_form_validate = $("#login_form").validate({
         	password : "请输入密码",
        },
        errorPlacement : function(error, element) {
-    	   console.log(element);
-    	   console.log(error);
            element.next().remove();//删除显示图标
            element.after('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
            element.closest('.form-group').append(error);//显示错误消息提示
@@ -90,13 +89,22 @@ var login_form_validate = $("#login_form").validate({
        onsubmit:true,
        debug:false,
        submitHandler:function(form){
+    	   var options = {};
            var user = {};
            user.name = $("#username").val();
            user.password = $("#password").val();
-           var result = xw_tools.sendAjax("http://localhost:8060/login",user);
+           var successFn = function(data){
+        	   if(data["code"] === "0"){
+        		   window.location.href = "http://localhost:8080/spring/homepage";
+        	   }else{
+//        		   $("#msgshowbox").text(data["message"]).show(500).hide(300);
+        		   xw_tools.showerrmsg(data["message"]);
+        	   }
+           }
+           options.url = "http://localhost:8060/login";
+           options.data = user;
+           options.successFn = successFn;
+           var result = xw_tools.sendAjax(options);
        }    
 	});
-
-
-$(":reset").on("click",function(){alert("okok");console.log(login_form_validate);login_form_validate.resetForm();alert("okok11");});
 }

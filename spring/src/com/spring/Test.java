@@ -2,6 +2,8 @@ package com.spring;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,7 @@ public class Test {
 	
 	@RequestMapping("/homepage")
 	public String homepage() {
-		return "homepage";
+		return "/home/homepage";
 	}
 	
 	@RequestMapping("register")
@@ -29,28 +31,15 @@ public class Test {
 		return "index";
 	}
 	
+//	@RequestMapping("logout")
+//	public String logout(HttpSession httpsession) {
+//		httpsession.removeAttribute("username");
+//		return "index";
+//	}
 	
 	@RequestMapping("/file")
 	public void filein(MultipartFile multipart) {
 		System.out.println(multipart.getName());
-	}
-//	public String register(@Valid User user,BindingResult result){
-////		System.out.println("password====="+result.getFieldValue("username")+"=");
-////		System.out.println("password====="+result.getFieldValue("password")+"=");
-//		if(result.hasErrors()) {s
-//			return "register";
-//		}
-//		return "hello";
-//	}
-	
-	@org.junit.Test
-	public  void hh() {
-		User s = new User();
-		s.setName("123");
-		s.setPassword("123123123");
-		System.out.println(new GsonBuilder().create().toJson(s)
-     );
-		
 	}
 	
 	@RequestMapping("/show")

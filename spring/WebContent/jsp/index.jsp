@@ -14,9 +14,6 @@
 	href="/spring/static/bootstraptable/bootstrap-table.css" />
 <link rel="stylesheet" type="text/css"
 	href="/spring/static/fileinput/css/fileinput.css" />
-	<link rel="stylesheet" type="text/css"
-	href="/spring/static/tip12/css/css.css">
-
 <script src="/spring/static/jquery/jquery-3.2.1.js"></script>
 <script src="/spring/static/bootstrap/js/bootstrap.js"></script>
 <script src="/spring/static/sweetalert/sweetalert.js"></script>
@@ -27,7 +24,6 @@
 <script src="/spring/static/valid/jquery.validate.js"></script>
 <script src="/spring/static/valid/messages_zh.js"></script>
 <script src="/spring/static/valid/additional-methods.js"></script>
-<script src="/spring/static/tip12/js/msgTips.js"></script>
 <script src="/spring/static/business/tool/js/tool.js"></script>
 <script src="/spring/static/css/main.js"></script>
 <title>登入页面</title>
