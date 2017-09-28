@@ -1,7 +1,5 @@
 window.xw_tools = {
 		showerrmsg:function(msg){
-			
-			
 			$("#msgshowbox").manhua_msgTips({
 				Event : "click",			//响应的事件
 				timeOut : 1000,				//提示层显示的时间

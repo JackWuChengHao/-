@@ -51,33 +51,66 @@ $(document).ready(function(){
   var table_init = function(){
   $('#userlist_tab').bootstrapTable({
 	     url: 'http://localhost:8060/users',
+	     method:"get",
 	 //     pagination: true,
 	 striped: true,             //是否显示行间隔色
-	 sortable: true,                     //是否启用排序
+//	 sortable: true,                     //是否启用排序
+	 	sidePagination: "server", //表示服务端请求
 	 	sortName:"id",
-	     sidePagination: "client",
 	     sortOrder: "asc",                   //排序方式
 	     pageNumber:1,                       //初始化加载第一页，默认第一页
 	     pageSize: 10,                       //每页的记录行数（*）
 	     pageList: [1, 2, 3, 4],        //可供选择的每页的行数（*）
 	     showRefresh: true,                  //是否显示刷新按钮
+	     pagination: true, //启动分页
+	     pageSize: 3, //每页显示的记录数
+	     pageNumber:1, //当前第几页
+	     pageList: [3, 15, 20, 25], //记录数可选列表
+	     search: true, //是否启用查询
+	     showColumns: true, //显示下拉框勾选要显示的列
+	     showRefresh: true, //显示刷新按钮
+	     checkboxHeader:false,
+	     searchOnEnterKey:true,
+	     sortable:true,
+	     trimOnSearch:false,
+	     showFooter:true,
+	     escape:true,
+	     clickToSelect: true,
+	     onLoadError: function(){ //加载失败时执行
+	    	 window.xw_tools.showerrmsg("加载数据失败");
+	     },
 	     columns: [
 	    	 {
 	            field: 'state',
 	            checkbox: true,
 	            align: 'center',
-	            valign: 'middle'
+	            valign: 'middle',
+	            halign:"middle"
 	          }, {
+	         titleTooltip:"人员的唯一编号",
+//	         rowspan:2,
 	         field: 'id',
-	         title: 'id'
+	         title: '编号',
+	         align: 'center',
+	         valign: 'middle',
+	         halign:"center",
+	         sortable: true,
 	     }, {
 	         field: 'name',
-	         title: 'username'
+	         title: '用户名',
+	         align: 'center',
+	         valign: 'middle',
+	         halign:"center",
+	         sortable: true,
 	     }, {
 	         field: 'password',
-	         title: 'password',
+	         title: '密码',
 	         align: 'center',
+	         valign: 'middle',
+	         halign:"center",
 	         sortable: true,
+	         visible:true,
+	         cardVisible	:true
 	     }, ]
 	 });
   }
