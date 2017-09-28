@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -23,8 +24,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import home.dao.userdao;
+import home.entity.QueryParam;
 import home.entity.User;
 import home.iter.Season;
+import home.util.Util;
 
 @RestController
 public class welcome {
@@ -38,13 +41,13 @@ public class welcome {
 		return "index";
 	}
 	
-	@RequestMapping("/users")
-	public List<User> test(HttpServletRequest request, HttpServletResponse response ) {
-		System.out.println(request.getHeader("Origin"));
-		System.out.println(request.getHeader("Refer"));
-		response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
-		return userdaoimpl.users();
-	}
+//	@RequestMapping("/users")
+//	public List<User> test(HttpServletRequest request, HttpServletResponse response ) {
+//		System.out.println(request.getHeader("Origin"));
+//		System.out.println(request.getHeader("Refer"));
+//		response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+//		return userdaoimpl.users();
+//	}
 	
 	@RequestMapping("/file")
 	public JSONObject filein(@RequestParam("txt_file") MultipartFile[] multipartarray,HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
@@ -100,7 +103,7 @@ public class welcome {
 	@RequestMapping("login")
 	public HashMap<String,String> login(ServletRequest request,@RequestBody User user, ServletResponse response) throws ServletException, IOException{
 		HashMap<String,String> result =  new HashMap<>();
-		List<User> userlist = userlist();
+		List<User> userlist = userdaoimpl.users();
 		for (User user2 : userlist) {
 			if(user2.getName().equals(user.getName()) && user2.getPassword().equals(user.getPassword()) ) {
 				result.put("code","0");
@@ -118,9 +121,15 @@ public class welcome {
 		return result;
 	}
 	
-	@RequestMapping("userlist")
-	public List<User> userlist() {
-		return userdaoimpl.users();
+	@RequestMapping("users")
+	public  Map<String,Object> userlist(HttpServletRequest httpServletRequest) {
+//		QueryParam queryParam = Util.GetQueryParam(httpServletRequest);
+		 Map<String, String[]> httpparam = httpServletRequest.getParameterMap();
+		Map<String,Object> result  = new HashMap<>();
+		List<User> rows = userdaoimpl.users();
+		result.put("total", 7);
+		result.put("rows", rows);
+		return result;
 	}
 }
 

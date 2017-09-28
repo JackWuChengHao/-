@@ -12,7 +12,7 @@ spring:
 #        create create-drop 应用停止会删除表 none validate
           ddl-auto: update
           current_session_context_class: org.springframework.orm.hibernate4.SpringSessionContext 
-       show-sql: true
+       show-sql: false
      thymeleaf:                                                     
           prefix: classpath:/templates/
           suffix: .html

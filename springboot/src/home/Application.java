@@ -18,5 +18,3 @@ public class Application {
 	    return hemf.getSessionFactory();    
 	}    
 }    
-
-
