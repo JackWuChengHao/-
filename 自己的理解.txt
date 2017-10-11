@@ -1,0 +1,19 @@
+对于异常的捕捉总结一下
+InputStream is = new InputStream(new FileInputStream(new File("...")));
+try{
+	...
+}catch(XXException xxexception){
+	xxexception.printStack();
+	...
+}finally{
+	is.close()
+}
+
+今天遇到了一个问题在生产环境下出现了错误，知道报了一个异常，但是当时为了生产环境下的性能就没有e.printStack()
+再加上有的异常里面直接就是return null;导致了根本看不出是哪里出错了。
+所以感觉在异常处理的方面还有很多问题可以做
+1.比如可以将异常信息的显示，对于开发和生产环境进行定制，开发环境可以在console里打印，而生产环境里最好就写入日志里
+老实说错误栈是最详细的
+2.对于整个项目的不同的层或者不同的模块对于异常的处理应该也是不一样的
+3.对于异常类型也分情况来进行处理
+
