@@ -1,0 +1,112 @@
+// HashMapp
+
+static final int default_initial_capacity = 1 << 4; 2^4 = 16
+
+
+static final int maximum_capacity = 1 << 30;
+
+// 最大容纳值 1 << 30   即2^30
+
+
+static final float default_load_factor = 0.75f;
+// 默认容量因子 0.75  
+
+
+
+// 由链表转换成树的阈值treeify_threshold
+static final int treeify_threshold = 8;
+// 即当桶中bin的数量超过treeify_threshold时使用树来代替链表。默认值是8
+
+
+// untreeify_threshold
+static final int untreeify_threshold = 6;
+// 当执行resize操作时，当桶中bin的数量少于UNTREEIFY_THRESHOLD时使用链表来代替树。默认值是6 
+
+
+
+static final int min_treeify_capacity = 64;
+// 当桶中的bin被树化时最小的hash表容量。（如果没有达到这个阈值，即hash表容量小于min_treeify_capacity，当桶中bin的数量太多时会执行resize扩容操作）这个min_treeify_capacity的值至少是treeify_capacity的4倍。
+
+
+
+// hash算法
+static final int hash(Object key) {
+    int h;
+    return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+ }
+ 
+// hashMap的内部数据结构 
+  static class Node<K,V> implements Map.Entry<K,V> {
+        final int hash;
+        final K key;
+        V value;
+        Node<K,V> next;
+
+        Node(int hash, K key, V value, Node<K,V> next) {
+            this.hash = hash;
+            this.key = key;
+            this.value = value;
+            this.next = next;
+        }
+/*1.在此段中可以发现只要在构造函数里初始化了final 变量即可，如果是static final则在static{}中初始化即可 即可以在声明时定义或者构造函数定义或者构造块中定义
+
+为啥呢呵呵这个就只能看语法编译啦，我也木质呀 */
+
+        public final K getKey()        { return key; }
+        public final V getValue()      { return value; }
+        public final String toString() { return key + "=" + value; }
+
+        public final int hashCode() {
+            return Objects.hashCode(key) ^ Objects.hashCode(value);
+        }
+		
+		/* public static int hashCode(Object o) {
+			 return o != null ? o.hashCode() : 0;
+			}
+			hashCode如果为null则返回0否则返回其hashCode()
+		*/
+		
+		/*
+		
+		equals具有
+		对称性
+		反射性
+		类推性
+		一致性
+		如果x.equals(y)返回“true”，那么x和y的hashCode()必须相等。
+
+		如果x.equals(y)返回“false”，那么x和y的hashCode()有可能相等，也有可能不等。
+		
+		为啥呢，现在不知道
+
+		理清了上面的关系我们就知道他们两者是如何配合起来工作的。先看下图：
+
+		2014040701_thumb2
+
+		整个处理流程是：
+
+		1)判断两个对象的hashcode是否相等，若不等，则认为两个对象不等，完毕，若相等，则比较equals。
+
+		2)若两个对象的equals不等，则可以认为两个对象不等，否则认为他们相等。
+
+		*/
+		public final V setValue(V newValue) {
+            V oldValue = value;
+            value = newValue;
+            return oldValue;
+        }
+
+        public final boolean equals(Object o) {
+            if (o == this)
+                return true;
+            if (o instanceof Map.Entry) {
+                Map.Entry<?,?> e = (Map.Entry<?,?>)o;
+                if (Objects.equals(key, e.getKey()) &&
+                    Objects.equals(value, e.getValue()))
+                    return true;
+            }
+            return false;
+        }
+    }
+
+
