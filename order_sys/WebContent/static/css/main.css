@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+body {
+	background-image: url(../img/indexbg.jpg);
+	background-repeat: no-repeat;
+	/* 	background-position:center */
+}
+
+.copy-right {
+	height: 40px;
+	line-height: 40px;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	background: #333;
+	color: #fff;
+	font-family: Arial;
+	font-size: 12px;
+	letter-spacing: 1px;
+}
